@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Konsl</string>
+    <string name="login">Login</string>
+    <string name="konsl_logo">Konsl Logo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_up_now">Daftar Sekarang</string>
+    <string name="register">Daftar</string>
+    <string name="have_account">Sudah punya akun</string>
+    <string name="password_confirmation">Konfirmasi Password</string>
+    <string name="name">Nama</string>
+    <string name="gender">Jenis Kelamin</string>
+    <string name="male">Laki-laki</string>
+    <string name="female">Perempuan</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="birth_place">Tempat Lahir</string>
+    <string name="birth_date">Tanggal Lahir</string>
+    <string name="hobby">Hobi</string>
+    <string name="address">Alamat</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_user_home">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="next_consul">Konsul Selanjutnya</string>
+    <string name="education">Edukasi</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="more">Selengkapnya</string>
+    <string name="article">Artikel</string>
+    <string name="title_educations">Edukasi</string>
+    <string name="title_consultations">Konsultasi</string>
+    <string name="konsl_tutorial">Tutorial Konsl</string>
+    <string name="konsl_version_value">v1.0</string>
+    <string name="dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consectetur.</string>
+    <string name="konsl_description">Aplikasi Konsultasi Kesehatan Mental Mahasiswa</string>
+</resources>

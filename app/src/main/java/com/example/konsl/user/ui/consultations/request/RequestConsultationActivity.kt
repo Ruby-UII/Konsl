@@ -95,9 +95,8 @@ class RequestConsultationActivity : AppCompatActivity() {
             db.collection("consultations")
                 .add(consultation)
                 .addOnSuccessListener { documentReference ->
-                    btnRegisteringConsultation.isEnabled = true
-                    btnRegisteringConsultation.text = getString(R.string.registering_consultation)
                     Toast.makeText(this, getString(R.string.requesting_consultation_success), Toast.LENGTH_SHORT).show()
+                    finish()
                     Log.d(this::class.java.simpleName, "DocumentSnapshot written with ID: ${documentReference.id}")
                 }
                 .addOnFailureListener { e ->

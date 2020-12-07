@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.konsl.R
 import com.example.konsl.model.Consultation
+import com.github.marlonlom.utilities.timeago.TimeAgo
+import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_consultation.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.time.milliseconds
 
 class ConsultationAdapter: RecyclerView.Adapter<ConsultationAdapter.ConsultationViewHolder>() {
     companion object {
@@ -34,8 +37,16 @@ class ConsultationAdapter: RecyclerView.Adapter<ConsultationAdapter.Consultation
                 when(consultationItem.status){
                     STATUS_WAITING_FOR_CONFIRMATION -> {
                         tvTitle.text = resources.getString(R.string.waiting_for_confirmation)
-                        val sdf = SimpleDateFormat("EEE, dd MMMM yyyy", Locale.getDefault())
-                        tvInfo.text = resources.getString(R.string.requested_time, sdf.format(consultationItem.createdAt.toDate()))
+                        val localeByLanguageTag = Locale.forLanguageTag("id")
+                        val timeMessages = TimeAgoMessages.Builder().withLocale(localeByLanguageTag).build()
+                        tvInfo.text = resources.getString(R.string.requested_time, TimeAgo.using(consultationItem.createdAt.toDate().time, timeMessages))
+                        Picasso.get().load(R.drawable.dummy_profile)
+                                .into(imgThumbnail)
+                    }
+                    STATUS_CONFIRMED -> {
+                        tvTitle.text = consultationItem.counselorName.toString()
+                        val dateFormat = SimpleDateFormat("EEE, dd MMMM yyyy HH:mm", Locale.getDefault())
+                        tvInfo.text = dateFormat.format(consultationItem.timeAccepted!!.toDate())
                         Picasso.get().load(R.drawable.dummy_profile)
                                 .into(imgThumbnail)
                     }

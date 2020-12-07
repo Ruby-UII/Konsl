@@ -103,7 +103,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvNextConsultationDate"
+                        android:id="@+id/tvNextConsultationTimeDiff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -115,7 +115,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                     <TextView
-                        android:id="@+id/tvNextConsultationCounselor"
+                        android:id="@+id/tvNextConsultationDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -134,9 +134,9 @@
                         android:text="16:00 WIB"
                         android:textColor="@color/text_secondary_color"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvNextConsultationCounselor"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvNextConsultationDate"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvNextConsultationCounselor" />
+                        app:layout_constraintTop_toTopOf="@+id/tvNextConsultationDate" />
 
                     <TextView
                         android:id="@+id/tvMoreConsultations"

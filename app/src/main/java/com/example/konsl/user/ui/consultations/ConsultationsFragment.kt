@@ -38,7 +38,7 @@ class ConsultationsFragment : Fragment(), View.OnClickListener {
         rvConsultations.adapter = consultationAdapter
 
         consultationsViewModel = ViewModelProvider(this).get(ConsultationsViewModel::class.java)
-        consultationsViewModel.setConsultations()
+        consultationsViewModel.loadConsultations()
 
         consultationsViewModel.getConsultations().observe(viewLifecycleOwner, Observer { consultations ->
             consultations?.let {
@@ -58,5 +58,13 @@ class ConsultationsFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        consultationsViewModel.loadConsultations()
+        progressBarConsultations.visibility = View.VISIBLE
+        rvConsultations.visibility = View.INVISIBLE
     }
 }

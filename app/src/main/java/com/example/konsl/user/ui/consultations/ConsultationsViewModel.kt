@@ -15,7 +15,7 @@ class ConsultationsViewModel : ViewModel() {
     private val mAuth = FirebaseAuth.getInstance()
     private val listConsultations = MutableLiveData<ArrayList<Consultation>>()
 
-    fun setConsultations(){
+    fun loadConsultations(){
         val listItems = ArrayList<Consultation>()
 
         db.collection("consultations")
@@ -34,6 +34,9 @@ class ConsultationsViewModel : ViewModel() {
                                 timeRequest = document.data["time_request"] as String,
                                 genderRequest = document.data["gender_request"] as String,
                                 createdAt = document.data["created_at"] as Timestamp,
+                                timeAccepted = document.data["time_accepted"] as Timestamp?,
+                                counselorId = document.data["counselor_id"] as String?,
+                                counselorName = document.data["counselor_name"] as String?,
                         )
                         listItems.add(consultation)
                         Log.d(this::class.java.simpleName, "${document.id} => ${document.data}")

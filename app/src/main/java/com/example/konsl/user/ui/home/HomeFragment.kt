@@ -3,8 +3,6 @@ package com.example.konsl.user.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,8 +26,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var educationsSkeleton: RecyclerViewSkeletonScreen
     private lateinit var tutorialSkeleton: RecyclerViewSkeletonScreen
+    private lateinit var nextConsultationTimeDiffSkeleton: ViewSkeletonScreen
     private lateinit var nextConsultationDateSkeleton: ViewSkeletonScreen
-    private lateinit var nextConsultationCounselorSkeleton: ViewSkeletonScreen
     private lateinit var nextConsultationTimeSkeleton: ViewSkeletonScreen
 
     override fun onCreateView(
@@ -89,26 +87,26 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 tutorialAdapter.setData(it)
             }
         })
+        nextConsultationTimeDiffSkeleton = Skeleton.bind(tvNextConsultationTimeDiff)
+                .load(R.layout.skeleton_next_consultation_time_diff)
+                .shimmer(true)
+                .duration(500)
+                .show()
+        homeViewModel.getNextConsultationTimeDiff().observe(viewLifecycleOwner, Observer { date ->
+            date?.let {
+                nextConsultationTimeDiffSkeleton.hide()
+                tvNextConsultationTimeDiff.text = if(it != "-") getString(R.string.time_remaining, it) else getString(R.string.nothing)
+            }
+        })
         nextConsultationDateSkeleton = Skeleton.bind(tvNextConsultationDate)
                 .load(R.layout.skeleton_next_consultation_date)
                 .shimmer(true)
                 .duration(500)
                 .show()
-        homeViewModel.getNextConsultationDate().observe(viewLifecycleOwner, Observer { date ->
-            date?.let {
+        homeViewModel.getNextConsultationDate().observe(viewLifecycleOwner, Observer { counselor ->
+            counselor?.let {
                 nextConsultationDateSkeleton.hide()
                 tvNextConsultationDate.text = if(it != "-") it else getString(R.string.nothing)
-            }
-        })
-        nextConsultationCounselorSkeleton = Skeleton.bind(tvNextConsultationCounselor)
-                .load(R.layout.skeleton_next_consultation_counselor)
-                .shimmer(true)
-                .duration(500)
-                .show()
-        homeViewModel.getNextConsultationCounselor().observe(viewLifecycleOwner, Observer { counselor ->
-            counselor?.let {
-                nextConsultationCounselorSkeleton.hide()
-                tvNextConsultationCounselor.text = if(it != "-") it else getString(R.string.nothing)
             }
         })
         nextConsultationTimeSkeleton = Skeleton.bind(tvNextConsultationTime)

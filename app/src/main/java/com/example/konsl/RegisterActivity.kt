@@ -48,6 +48,9 @@ class RegisterActivity : AppCompatActivity() {
 
     fun register(view: View) {
         if(isValid()){
+            btnRegister.isEnabled = false
+            btnRegister.text = getString(R.string.wait_a_moment)
+
             mAuth.createUserWithEmailAndPassword(
                 etEmail.text.toString(),
                 etPassword.text.toString()
@@ -74,34 +77,70 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun isValid(): Boolean {
-        if( etName.text.toString().isNotEmpty()
-            && rgGender.checkedRadioButtonId != -1
-            && etEmail.text.toString().isNotEmpty()
-            && etPhoneNumber.toString().isNotEmpty()
-            && etBirthPlace.toString().isNotEmpty()
-            && etBirthDate.toString().isNotEmpty()
-            && etHobby.toString().isNotEmpty()
-            && etAddress.toString().isNotEmpty()
-            && etPassword.text.toString().isNotEmpty()
-            && etPasswordConfirmation.text.toString().isNotEmpty()
-            && etPassword.text.toString() == etPasswordConfirmation.text.toString()
-        ){
-            btnRegister.isEnabled = false
-            btnRegister.text = getString(R.string.wait_a_moment)
-            return true
+        var isValid: Boolean = true
+        if(etName.text.toString().isEmpty()){
+            etName.error = getString(R.string.error_required)
+            isValid = false
         }
-        Toast.makeText(
-            this,
-            getString(R.string.please_input_correctly),
-            Toast.LENGTH_SHORT
-        ).show()
-        return false
+        if(rgGender.checkedRadioButtonId == -1){
+            rbFemale.error = getString(R.string.error_required)
+            isValid = false
+        }
+        if(etPhoneNumber.text.toString().isEmpty()){
+            etPhoneNumber.error = getString(R.string.error_required)
+            isValid = false
+        }
+        if(etBirthPlace.text.toString().isEmpty()){
+            etBirthPlace.error = getString(R.string.error_required)
+            isValid = false
+        }
+        if(etBirthDate.text.toString().isEmpty()){
+            etBirthDate.error = getString(R.string.error_required)
+            isValid = false
+        }
+        if(etHobby.text.toString().isEmpty()){
+            etHobby.error = getString(R.string.error_required)
+            isValid = false
+        }
+        if(etAddress.text.toString().isEmpty()){
+            etAddress.error = getString(R.string.error_required)
+            isValid = false
+        }
+        if(etPassword.text.toString().isEmpty()){
+            etPassword.error = getString(R.string.error_required)
+            isValid = false
+        } else {
+            if(etPassword.text.toString().length < 6){
+                etPassword.error = getString(R.string.error_password_minimum)
+                isValid = false
+            }
+        }
+        if(etPasswordConfirmation.text.toString().isEmpty()){
+            etPasswordConfirmation.error = getString(R.string.error_required)
+            isValid = false
+        } else {
+            if(etPassword.text.toString() != etPasswordConfirmation.text.toString()){
+                etPasswordConfirmation.error = getString(R.string.error_password_not_equsals)
+                isValid = false
+            }
+        }
+
+        return if(isValid){
+            true
+        } else {
+            Toast.makeText(
+                    this,
+                    getString(R.string.please_input_correctly),
+                    Toast.LENGTH_SHORT
+            ).show()
+            false
+        }
     }
 
     private val myCalendar: Calendar = Calendar.getInstance()
 
     var date =
-        OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             myCalendar[Calendar.YEAR] = year
             myCalendar[Calendar.MONTH] = monthOfYear
             myCalendar[Calendar.DAY_OF_MONTH] = dayOfMonth
@@ -144,10 +183,14 @@ class RegisterActivity : AppCompatActivity() {
             .addOnSuccessListener { documentReference ->
                 Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, UserHomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
-                finish()
                 Log.d(this::class.java.simpleName, "DocumentSnapshot added with ID: " + documentReference.id)
             }
-            .addOnFailureListener { e -> Log.w(this::class.java.simpleName, "Error adding document", e) }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, getString(R.string.register_failed), Toast.LENGTH_SHORT).show()
+                btnRegister.isEnabled = true
+                btnRegister.text = getString(R.string.register)
+            }
     }
 }

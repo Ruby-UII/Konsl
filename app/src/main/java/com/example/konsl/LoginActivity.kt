@@ -35,6 +35,9 @@ class LoginActivity : AppCompatActivity() {
 
     fun login(view: View) {
         if(isValid()){
+            btnLogin.isEnabled = false
+            btnLogin.text = getString(R.string.wait_a_moment)
+
             mAuth.signInWithEmailAndPassword(etEmail.text.toString(), etPassword.text.toString())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -74,22 +77,32 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener { exception ->
+                Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
+                btnLogin.isEnabled = true
+                btnLogin.text = getString(R.string.login)
                 Log.w(this::class.java.simpleName, "Error getting documents: ", exception)
             }
     }
 
     private fun isValid(): Boolean {
-        if(etEmail.text.toString().isNotEmpty() && etPassword.text.toString().isNotEmpty()
-        ){
-            btnLogin.isEnabled = false
-            btnLogin.text = getString(R.string.wait_a_moment)
-            return true
+        var isValid: Boolean = true
+        if(etEmail.text.toString().isEmpty()){
+            etEmail.error = getString(R.string.error_required)
+            isValid = false
         }
-        Toast.makeText(
-                this,
-                getString(R.string.please_input_correctly),
-                Toast.LENGTH_SHORT
-        ).show()
-        return false
+        if(etPassword.text.toString().isEmpty()){
+            etPassword.error = getString(R.string.error_required)
+            isValid = false
+        }
+        return if(isValid){
+            true
+        } else {
+            Toast.makeText(
+                    this,
+                    getString(R.string.please_input_correctly),
+                    Toast.LENGTH_SHORT
+            ).show()
+            false
+        }
     }
 }

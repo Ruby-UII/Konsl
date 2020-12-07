@@ -26,7 +26,7 @@
                 android:id="@+id/etProblem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine|textCapSentences" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,7 +48,7 @@
                 android:id="@+id/etEffort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine|textCapSentences" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +70,7 @@
                 android:id="@+id/etObstacle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine|textCapSentences" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +135,7 @@
                 android:id="@+id/etTimeRequest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine|textCapSentences" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

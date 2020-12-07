@@ -54,4 +54,5 @@
     <string name="requesting_consultation_success">Permohonan konsultasi berhasil</string>
     <string name="requesting_consultation_failed">Permohonan konsultasi gagal</string>
     <string name="requested_time">Diajukan pada %1$s</string>
+    <string name="nothing">Tidak ada</string>
 </resources>

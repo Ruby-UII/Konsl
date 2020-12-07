@@ -87,7 +87,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="164dp">
 
                     <TextView
                         android:id="@+id/textView"
@@ -103,10 +103,11 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tvNextConsultationDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="2 Hari Lagi"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -114,28 +115,28 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/tvNextConsultationCounselor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="2 November 2020"
                         android:textColor="@color/text_secondary_color"
                         android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                        app:layout_constraintBottom_toTopOf="@+id/divider2"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/tvNextConsultationTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:text="16:00 WIB"
                         android:textColor="@color/text_secondary_color"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvNextConsultationCounselor"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView3" />
+                        app:layout_constraintTop_toTopOf="@+id/tvNextConsultationCounselor" />
 
                     <TextView
                         android:id="@+id/tvMoreConsultations"
@@ -145,22 +146,21 @@
                         android:paddingVertical="8dp"
                         android:text="@string/more"
                         android:textColor="@color/primary_color"
+                        app:drawableEndCompat="@drawable/ic_navigate_next_blue_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/divider2"
-                        app:drawableEndCompat="@drawable/ic_navigate_next_blue_24" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <View
                         android:id="@+id/divider2"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_marginTop="16dp"
                         android:background="?android:attr/listDivider"
+                        app:layout_constraintBottom_toTopOf="@+id/tvMoreConsultations"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                        app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>

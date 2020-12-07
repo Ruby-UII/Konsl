@@ -15,5 +15,8 @@ class Consultation(
         var status: String? = null,
         var timeRequest: String? = null,
         var genderRequest: String? = null,
-        var createdAt: Timestamp? = null
+        var timeAccepted: Timestamp? = null,
+        var counselorId: String? = null,
+        var counselorName: String? = null,
+        var createdAt: Timestamp = Timestamp.now()
 ): Parcelable

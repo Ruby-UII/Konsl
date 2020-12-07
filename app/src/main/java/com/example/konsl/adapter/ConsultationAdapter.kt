@@ -35,7 +35,7 @@ class ConsultationAdapter: RecyclerView.Adapter<ConsultationAdapter.Consultation
                     STATUS_WAITING_FOR_CONFIRMATION -> {
                         tvTitle.text = resources.getString(R.string.waiting_for_confirmation)
                         val sdf = SimpleDateFormat("EEE, dd MMMM yyyy", Locale.getDefault())
-                        tvInfo.text = resources.getString(R.string.requested_time, sdf.format(consultationItem.createdAt!!.toDate()))
+                        tvInfo.text = resources.getString(R.string.requested_time, sdf.format(consultationItem.createdAt.toDate()))
                         Picasso.get().load(R.drawable.dummy_profile)
                                 .into(imgThumbnail)
                     }

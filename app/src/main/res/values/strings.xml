@@ -33,4 +33,25 @@
     <string name="konsl_version_value">v1.0</string>
     <string name="dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consectetur.</string>
     <string name="konsl_description">Aplikasi Konsultasi Kesehatan Mental Mahasiswa</string>
+    <string name="problem_history">Riwayat masalah yang dialami</string>
+    <string name="effort">Usaha yang telah dilakukan</string>
+    <string name="obstacle">Kendala yang dialami</string>
+    <string name="counselor_gender">Jenis Kelamin Konselor</string>
+    <string name="not_specified">Tidak ditentukan</string>
+    <string name="time_request">Permintaan waktu konseling</string>
+    <string name="registering_consultation">Daftar Konsultasi</string>
+    <string name="cancel">Batal</string>
+    <string name="consultation_request">Permohonan Konsultasi</string>
+    <string name="error_required">Field ini tidak boleh kosong</string>
+    <string name="wait_a_moment">Tunggu sebentar...</string>
+    <string name="dummy_text_2">Lorem Ipsum</string>
+    <string name="waiting_for_confirmation">Menunggu Konfirmasi</string>
+    <string name="register_failed">Pendaftaran gagal</string>
+    <string name="please_input_correctly">Harap memasukkan input dengan benar</string>
+    <string name="register_success">Pendaftaran berhasil</string>
+    <string name="login_failed">Login gagal</string>
+    <string name="login_success">Login berhasil</string>
+    <string name="requesting_consultation_success">Permohonan konsultasi berhasil</string>
+    <string name="requesting_consultation_failed">Permohonan konsultasi gagal</string>
+    <string name="requested_time">Diajukan pada %1$s</string>
 </resources>

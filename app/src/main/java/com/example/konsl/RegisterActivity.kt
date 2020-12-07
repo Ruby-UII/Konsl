@@ -12,10 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.konsl.user.UserHomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.etEmail
-import kotlinx.android.synthetic.main.activity_register.etPassword
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,12 +30,20 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         mAuth = FirebaseAuth.getInstance()
+
+        supportActionBar?.let {
+            it.title = getString(R.string.register)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     fun signIn(view: View) {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = intent.flags ?: Intent.FLAG_ACTIVITY_NO_HISTORY
-        startActivity(intent)
+        finish()
     }
 
     fun register(view: View) {
@@ -50,13 +57,17 @@ class RegisterActivity : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         val user = mAuth.currentUser
                         if(user != null){
+                            val profileUpdates = UserProfileChangeRequest.Builder()
+                                .setDisplayName(etName.text.toString())
+                                .build()
+                            user.updateProfile(profileUpdates)
                             saveUser(user)
                         }
                     } else {
                         // If sign in fails, display a message to the user.
                         btnRegister.isEnabled = true
                         btnRegister.text = getString(R.string.register)
-                        Toast.makeText(this, "Register failed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.register_failed), Toast.LENGTH_SHORT).show()
                     }
                 }
         }
@@ -76,12 +87,12 @@ class RegisterActivity : AppCompatActivity() {
             && etPassword.text.toString() == etPasswordConfirmation.text.toString()
         ){
             btnRegister.isEnabled = false
-            btnRegister.text = "Tunggu sebentar..."
+            btnRegister.text = getString(R.string.wait_a_moment)
             return true
         }
         Toast.makeText(
             this,
-            "Pendaftaran gagal. Harap memasukkan inputan dengan benar.",
+            getString(R.string.please_input_correctly),
             Toast.LENGTH_SHORT
         ).show()
         return false
@@ -131,9 +142,10 @@ class RegisterActivity : AppCompatActivity() {
         db.collection("users")
             .add(user)
             .addOnSuccessListener { documentReference ->
-                Toast.makeText(this, "Register Success.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, UserHomeActivity::class.java)
                 startActivity(intent)
+                finish()
                 Log.d(this::class.java.simpleName, "DocumentSnapshot added with ID: " + documentReference.id)
             }
             .addOnFailureListener { e -> Log.w(this::class.java.simpleName, "Error adding document", e) }

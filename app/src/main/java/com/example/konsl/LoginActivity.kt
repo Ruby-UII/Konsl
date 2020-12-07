@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                         // If sign in fails, display a message to the user.
                         btnLogin.isEnabled = true
                         btnLogin.text = getString(R.string.login)
-                        Toast.makeText(this, "Login gagal", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
                     }
                 }
         }
@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 // to home activity
-                Toast.makeText(this, "Login berhasil", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                 var role : String = ""
                 for (document in documents){
                     role = document.data["role"] as String
@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
                 if (role == ROLE_USER){
                     val intent = Intent(this, UserHomeActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
             .addOnFailureListener { exception ->
@@ -81,12 +82,12 @@ class LoginActivity : AppCompatActivity() {
         if(etEmail.text.toString().isNotEmpty() && etPassword.text.toString().isNotEmpty()
         ){
             btnLogin.isEnabled = false
-            btnLogin.text = "Tunggu sebentar..."
+            btnLogin.text = getString(R.string.wait_a_moment)
             return true
         }
         Toast.makeText(
                 this,
-                "Login gagal. Harap memasukkan inputan dengan benar.",
+                getString(R.string.please_input_correctly),
                 Toast.LENGTH_SHORT
         ).show()
         return false

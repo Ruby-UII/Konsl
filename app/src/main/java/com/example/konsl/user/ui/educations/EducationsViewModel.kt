@@ -16,26 +16,25 @@ class EducationsViewModel : ViewModel() {
     private val listArticles = MutableLiveData<ArrayList<Article>>()
 
     fun setArticles(){
-        val listItems = ArrayList<Article>()
-
         db.collection("articles")
             .whereEqualTo("tag", TYPE_EDUCATION)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
+            .addSnapshotListener { value, e ->
+                if (e != null || value == null) {
+                    Log.w(this::class.java.simpleName, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+                val listItems = ArrayList<Article>()
+                for (document in value) {
                     val article = Article(
-                        id = document.id,
-                        title = document.data["title"] as String,
-                        thumbnailUrl = document.data["thumbnail_url"] as String,
-                        content = document.data["content"] as String,
+                            id = document.id,
+                            title = document.data["title"] as String,
+                            thumbnailUrl = document.data["thumbnail_url"] as String,
+                            content = document.data["content"] as String,
                     )
                     listItems.add(article)
                     Log.d(this::class.java.simpleName, "${document.id} => ${document.data}")
                 }
                 listArticles.postValue(listItems)
-            }
-            .addOnFailureListener { exception ->
-                Log.d(this::class.java.simpleName, "Error getting documents: ", exception)
             }
     }
 

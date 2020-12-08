@@ -16,35 +16,33 @@ class ConsultationsViewModel : ViewModel() {
     private val listConsultations = MutableLiveData<ArrayList<Consultation>>()
 
     fun loadConsultations(){
-        val listItems = ArrayList<Consultation>()
-
         db.collection("consultations")
                 .whereEqualTo("user_id", mAuth.uid)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
+                .addSnapshotListener { value, e ->
+                    if (e != null || value == null) {
+                        Log.w(this::class.java.simpleName, "Listen failed.", e)
+                        return@addSnapshotListener
+                    }
+                    val listItems = ArrayList<Consultation>()
+                    for (doc in value) {
                         val consultation = Consultation(
-                                id = document.id,
-                                userName = document.data["user_name"] as String,
-                                userId = document.data["user_id"] as String,
-                                problem = document.data["problem"] as String,
-                                effort = document.data["effort"] as String,
-                                obstacle = document.data["obstacle"] as String,
-                                status = document.data["status"] as String,
-                                timeRequest = document.data["time_request"] as String,
-                                genderRequest = document.data["gender_request"] as String,
-                                createdAt = document.data["created_at"] as Timestamp,
-                                timeAccepted = document.data["time_accepted"] as Timestamp?,
-                                counselorId = document.data["counselor_id"] as String?,
-                                counselorName = document.data["counselor_name"] as String?,
+                                id = doc.id,
+                                userName = doc.data["user_name"] as String,
+                                userId = doc.data["user_id"] as String,
+                                problem = doc.data["problem"] as String,
+                                effort = doc.data["effort"] as String,
+                                obstacle = doc.data["obstacle"] as String,
+                                status = doc.data["status"] as String,
+                                timeRequest = doc.data["time_request"] as String,
+                                genderRequest = doc.data["gender_request"] as String,
+                                createdAt = doc.data["created_at"] as Timestamp,
+                                timeAccepted = doc.data["time_accepted"] as Timestamp?,
+                                counselorId = doc.data["counselor_id"] as String?,
+                                counselorName = doc.data["counselor_name"] as String?,
                         )
                         listItems.add(consultation)
-                        Log.d(this::class.java.simpleName, "${document.id} => ${document.data}")
                     }
                     listConsultations.postValue(listItems)
-                }
-                .addOnFailureListener { exception ->
-                    Log.d(this::class.java.simpleName, "Error getting documents: ", exception)
                 }
     }
 

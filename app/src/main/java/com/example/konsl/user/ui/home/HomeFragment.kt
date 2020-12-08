@@ -49,38 +49,38 @@ class HomeFragment : Fragment(), View.OnClickListener {
         rvArticles.layoutManager = LinearLayoutManager(context)
         rvArticles.adapter = articleAdapter
         rvArticles.isNestedScrollingEnabled = false
-        educationsSkeleton = Skeleton.bind(rvArticles)
-            .adapter(articleAdapter)
-            .load(R.layout.item_skeleton_article)
-            .shimmer(true)
-            .duration(500)
-            .count(2)
-            .show()
 
         tutorialAdapter = TutorialAdapter()
         tutorialAdapter.notifyDataSetChanged()
 
         rvTutorials.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rvTutorials.adapter = tutorialAdapter
-        tutorialSkeleton = Skeleton.bind(rvTutorials)
-            .adapter(tutorialAdapter)
-            .load(R.layout.item_tutorial)
-            .shimmer(true)
-            .duration(500)
-            .count(2)
-            .show()
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         homeViewModel.loadArticles()
         homeViewModel.loadTutorials()
         homeViewModel.loadNextConsultationInfo()
 
+        educationsSkeleton = Skeleton.bind(rvArticles)
+                .adapter(articleAdapter)
+                .load(R.layout.skeleton_item_article)
+                .shimmer(true)
+                .duration(500)
+                .count(2)
+                .show()
         homeViewModel.getArticles().observe(viewLifecycleOwner, Observer { articles ->
             articles?.let {
                 educationsSkeleton.hide()
                 articleAdapter.setData(it)
             }
         })
+        tutorialSkeleton = Skeleton.bind(rvTutorials)
+                .adapter(tutorialAdapter)
+                .load(R.layout.item_tutorial)
+                .shimmer(true)
+                .duration(500)
+                .count(2)
+                .show()
         homeViewModel.getTutorials().observe(viewLifecycleOwner, Observer { tutorials ->
             tutorials?.let {
                 tutorialSkeleton.hide()

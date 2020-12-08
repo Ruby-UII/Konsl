@@ -34,36 +34,39 @@ class HomeViewModel : ViewModel() {
     private val nextConsultationTime = MutableLiveData<String>()
 
     fun loadArticles(){
-        val listItems = ArrayList<Article>()
         db.collection("articles")
             .whereEqualTo("tag", TYPE_EDUCATION)
             .limit(2)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
+            .addSnapshotListener { value, e ->
+                if (e != null || value == null) {
+                    Log.w(this::class.java.simpleName, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+                val listItems = ArrayList<Article>()
+                for (document in value) {
                     val article = Article(
-                        id = document.id,
-                        title = document.data["title"] as String,
-                        thumbnailUrl = document.data["thumbnail_url"] as String,
-                        content = document.data["content"] as String,
+                            id = document.id,
+                            title = document.data["title"] as String,
+                            thumbnailUrl = document.data["thumbnail_url"] as String,
+                            content = document.data["content"] as String,
                     )
                     listItems.add(article)
                     Log.d(this::class.java.simpleName, "${document.id} => ${document.data}")
                 }
                 listArticles.postValue(listItems)
             }
-            .addOnFailureListener { exception ->
-                Log.d(this::class.java.simpleName, "Error getting documents: ", exception)
-            }
     }
 
     fun loadTutorials(){
-        val listItems = ArrayList<Article>()
         db.collection("articles")
                 .whereEqualTo("tag", TYPE_TUTORIAL)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
+                .addSnapshotListener { value, e ->
+                    if (e != null || value == null) {
+                        Log.w(this::class.java.simpleName, "Listen failed.", e)
+                        return@addSnapshotListener
+                    }
+                    val listItems = ArrayList<Article>()
+                    for (document in value) {
                         val article = Article(
                                 id = document.id,
                                 title = document.data["title"] as String,
@@ -75,37 +78,36 @@ class HomeViewModel : ViewModel() {
                     }
                     listTutorials.postValue(listItems)
                 }
-                .addOnFailureListener { exception ->
-                    Log.d(this::class.java.simpleName, "Error getting documents: ", exception)
-                }
     }
 
     fun loadNextConsultationInfo(){
-        val listItems = ArrayList<Consultation>()
         db.collection("consultations")
                 .whereEqualTo("user_id", mAuth.uid)
                 .whereEqualTo("status", STATUS_CONFIRMED)
                 .orderBy("time_accepted", Query.Direction.DESCENDING)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
+                .addSnapshotListener { value, e ->
+                    if (e != null || value == null) {
+                        Log.w(this::class.java.simpleName, "Listen failed.", e)
+                        return@addSnapshotListener
+                    }
+                    val listItems = ArrayList<Consultation>()
+                    for (doc in value) {
                         val consultation = Consultation(
-                                id = document.id,
-                                userName = document.data["user_name"] as String,
-                                userId = document.data["user_id"] as String,
-                                problem = document.data["problem"] as String,
-                                effort = document.data["effort"] as String,
-                                obstacle = document.data["obstacle"] as String,
-                                status = document.data["status"] as String,
-                                timeRequest = document.data["time_request"] as String,
-                                genderRequest = document.data["gender_request"] as String,
-                                createdAt = document.data["created_at"] as Timestamp,
-                                timeAccepted = document.data["time_accepted"] as Timestamp,
-                                counselorId = document.data["counselor_id"] as String,
-                                counselorName = document.data["counselor_name"] as String,
+                                id = doc.id,
+                                userName = doc.data["user_name"] as String,
+                                userId = doc.data["user_id"] as String,
+                                problem = doc.data["problem"] as String,
+                                effort = doc.data["effort"] as String,
+                                obstacle = doc.data["obstacle"] as String,
+                                status = doc.data["status"] as String,
+                                timeRequest = doc.data["time_request"] as String,
+                                genderRequest = doc.data["gender_request"] as String,
+                                createdAt = doc.data["created_at"] as Timestamp,
+                                timeAccepted = doc.data["time_accepted"] as Timestamp?,
+                                counselorId = doc.data["counselor_id"] as String?,
+                                counselorName = doc.data["counselor_name"] as String?,
                         )
                         listItems.add(consultation)
-                        Log.d(this::class.java.simpleName, "${document.id} => ${document.data}")
                     }
                     if(listItems.size > 0){
                         val nextConsultation = listItems[0]
@@ -121,9 +123,6 @@ class HomeViewModel : ViewModel() {
                         nextConsultationDate.postValue("-")
                         nextConsultationTime.postValue("-")
                     }
-                }
-                .addOnFailureListener { exception ->
-                    Log.d(this::class.java.simpleName, "Error getting documents: ", exception)
                 }
     }
 

@@ -43,8 +43,12 @@ class ConsultationsFragment : Fragment(), View.OnClickListener {
         consultationsViewModel.getConsultations().observe(viewLifecycleOwner, Observer { consultations ->
             consultations?.let {
                 progressBarConsultations.visibility = View.INVISIBLE
-                rvConsultations.visibility = View.VISIBLE
-                consultationAdapter.setData(it)
+                if(it.isNotEmpty()){
+                    rvConsultations.visibility = View.VISIBLE
+                    consultationAdapter.setData(it)
+                } else {
+                    layoutNoConsultation.visibility = View.VISIBLE
+                }
             }
         })
 
@@ -58,13 +62,5 @@ class ConsultationsFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        consultationsViewModel.loadConsultations()
-        progressBarConsultations.visibility = View.VISIBLE
-        rvConsultations.visibility = View.INVISIBLE
     }
 }

@@ -37,7 +37,7 @@ class EducationsFragment : Fragment() {
 
         skeleton = Skeleton.bind(rvArticles)
                 .adapter(articleAdapter)
-                .load(R.layout.item_skeleton_article)
+                .load(R.layout.skeleton_item_article)
                 .shimmer(true)
                 .duration(500)
                 .show()

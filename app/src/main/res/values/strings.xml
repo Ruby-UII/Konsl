@@ -58,4 +58,5 @@
     <string name="time_remaining">%1$s lagi</string>
     <string name="error_password_not_equsals">Password konfirmasi beda</string>
     <string name="error_password_minimum">Password tidak boleh kurang dari 6 huruf</string>
+    <string name="no_consultation">Anda belum pernah melakukan konsultasi</string>
 </resources>

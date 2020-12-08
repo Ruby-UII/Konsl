@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.konsl.psychologist.PsychologistHomeActivity
 import com.example.konsl.user.UserHomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -17,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private val ROLE_USER = "user"
     private val ROLE_ADMIN = "admin"
-    private val ROLE_PSYCHOLOGIST = "psychologist"
+    private val ROLE_PSYCHOLOGIST = "psikolog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +73,11 @@ class LoginActivity : AppCompatActivity() {
                 }
                 if (role == ROLE_USER){
                     val intent = Intent(this, UserHomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else if (role == ROLE_PSYCHOLOGIST){
+                    val intent = Intent(this, PsychologistHomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

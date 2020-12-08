@@ -9,15 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konsl">
-        <activity android:name=".user.ui.consultations.request.RequestConsultationActivity"/>
+        <activity android:name=".psychologist.PsychologistHomeActivity"/>
+        <activity android:name=".user.ui.consultations.request.RequestConsultationActivity" />
         <activity android:name=".user.ui.educations.detail.ArticleDetailActivity" />
         <activity
             android:name=".user.UserHomeActivity"
             android:label="@string/title_activity_user_home" />
-        <activity
-            android:name=".RegisterActivity"/>
-        <activity
-            android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".MainActivity"
             android:noHistory="true">

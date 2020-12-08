@@ -45,9 +45,11 @@ class ConsultationsFragment : Fragment(), View.OnClickListener {
                 progressBarConsultations.visibility = View.INVISIBLE
                 if(it.isNotEmpty()){
                     rvConsultations.visibility = View.VISIBLE
+                    layoutNoConsultation.visibility = View.INVISIBLE
                     consultationAdapter.setData(it)
                 } else {
                     layoutNoConsultation.visibility = View.VISIBLE
+                    rvConsultations.visibility = View.INVISIBLE
                 }
             }
         })

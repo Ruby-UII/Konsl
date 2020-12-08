@@ -59,4 +59,8 @@
     <string name="error_password_not_equsals">Password konfirmasi beda</string>
     <string name="error_password_minimum">Password tidak boleh kurang dari 6 huruf</string>
     <string name="no_consultation">Anda belum pernah melakukan konsultasi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_request">Permohonan</string>
+    <string name="title_confirmed">Terkonfirmasi</string>
 </resources>

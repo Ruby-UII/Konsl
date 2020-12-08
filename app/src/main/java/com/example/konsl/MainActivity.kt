@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import com.example.konsl.psychologist.PsychologistHomeActivity
 import com.example.konsl.user.UserHomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private val ROLE_USER = "user"
     private val ROLE_ADMIN = "admin"
-    private val ROLE_PSYCHOLOGIST = "psychologist"
+    private val ROLE_PSYCHOLOGIST = "psikolog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +43,16 @@ class MainActivity : AppCompatActivity() {
                 .whereEqualTo("auth_id", currentUser.uid)
                 .get()
                 .addOnSuccessListener { documents ->
-                    var role : String = ""
+                    var role = ""
                     for (document in documents){
                         role = document.data["role"] as String
                     }
                     if (role == ROLE_USER){
                         val intent = Intent(this, UserHomeActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else if(role == ROLE_PSYCHOLOGIST){
+                        val intent = Intent(this, PsychologistHomeActivity::class.java)
                         startActivity(intent)
                     }
                 }

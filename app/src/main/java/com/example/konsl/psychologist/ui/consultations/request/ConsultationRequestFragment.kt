@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.konsl.R
-import com.example.konsl.adapter.ConsultationRequestAdapter
+import com.example.konsl.adapter.ConsultationCounselorAdapter
 import kotlinx.android.synthetic.main.fragment_consultation_request.*
 
 class ConsultationRequestFragment : Fragment() {
     private lateinit var viewModel: ConsultationRequestViewModel
-    private lateinit var adapter: ConsultationRequestAdapter
+    private lateinit var adapter: ConsultationCounselorAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +26,7 @@ class ConsultationRequestFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter = ConsultationRequestAdapter()
+        adapter = ConsultationCounselorAdapter()
         adapter.notifyDataSetChanged()
 
         rvConsultationRequests.layoutManager = LinearLayoutManager(context)

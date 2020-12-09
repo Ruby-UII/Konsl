@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.konsl.model.Consultation
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -18,11 +19,13 @@ class ConsultationConfirmedViewModel : ViewModel() {
     }
 
     private val db = FirebaseFirestore.getInstance()
+    private val mAuth = FirebaseAuth.getInstance()
     private val listConsultations = MutableLiveData<ArrayList<Consultation>>()
 
     fun loadConsultations(){
         db.collection("consultations")
             .whereEqualTo("status", STATUS_CONFIRMED)
+            .whereEqualTo("counselor_id", mAuth.uid)
             .addSnapshotListener { value, e ->
                 if (e != null || value == null) {
                     Log.w(this::class.java.simpleName, "Listen failed.", e)

@@ -1,11 +1,13 @@
 package com.example.konsl.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.konsl.R
 import com.example.konsl.model.Consultation
+import com.example.konsl.user.ui.consultations.chat.ConsultationUserChatActivity
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 import com.squareup.picasso.Picasso
@@ -65,7 +67,13 @@ class ConsultationUserAdapter: RecyclerView.Adapter<ConsultationUserAdapter.Cons
         holder.bind(consultation)
 
         holder.itemView.setOnClickListener{
-            //TODO
+            when(consultation.status){
+                STATUS_CONFIRMED -> {
+                    val intent = Intent(holder.itemView.context, ConsultationUserChatActivity::class.java)
+                    intent.putExtra(ConsultationUserChatActivity.EXTRA_CONSULTATION, consultation)
+                    holder.itemView.context.startActivity(intent)
+                }
+            }
         }
     }
 

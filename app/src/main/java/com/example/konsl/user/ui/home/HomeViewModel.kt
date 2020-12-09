@@ -6,13 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.konsl.model.Article
 import com.example.konsl.model.Consultation
-import com.github.marlonlom.utilities.timeago.TimeAgo
-import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -29,9 +26,7 @@ class HomeViewModel : ViewModel() {
     private val mAuth = FirebaseAuth.getInstance()
     private val listArticles = MutableLiveData<ArrayList<Article>>()
     private val listTutorials = MutableLiveData<ArrayList<Article>>()
-    private val nextConsultationTimeDiff = MutableLiveData<String>()
-    private val nextConsultationDate = MutableLiveData<String>()
-    private val nextConsultationTime = MutableLiveData<String>()
+    private val nextConsultationDate = MutableLiveData<Date>()
 
     fun loadArticles(){
         db.collection("articles")
@@ -111,17 +106,10 @@ class HomeViewModel : ViewModel() {
                     }
                     if(listItems.size > 0){
                         val nextConsultation = listItems[0]
-                        val localeByLanguageTag = Locale.forLanguageTag("id")
-                        val timeMessages = TimeAgoMessages.Builder().withLocale(localeByLanguageTag).build()
-                        val dateFormat = SimpleDateFormat("EEE, dd MMMM yyyy", Locale.getDefault())
-                        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-                        nextConsultationTimeDiff.postValue(TimeAgo.using(nextConsultation.timeAccepted!!.toDate().time, timeMessages).capitalize(Locale.getDefault()))
-                        nextConsultationDate.postValue(dateFormat.format(nextConsultation.timeAccepted!!.toDate()))
-                        nextConsultationTime.postValue(timeFormat.format(nextConsultation.timeAccepted!!.toDate()))
+
+                        nextConsultationDate.postValue(nextConsultation.timeAccepted!!.toDate())
                     } else {
-                        nextConsultationTimeDiff.postValue("-")
-                        nextConsultationDate.postValue("-")
-                        nextConsultationTime.postValue("-")
+                        nextConsultationDate.postValue(null)
                     }
                 }
     }
@@ -134,15 +122,7 @@ class HomeViewModel : ViewModel() {
         return listTutorials
     }
 
-    fun getNextConsultationTimeDiff(): LiveData<String>{
-        return nextConsultationTimeDiff
-    }
-
-    fun getNextConsultationDate(): LiveData<String>{
+    fun getNextConsultationDate(): LiveData<Date>{
         return nextConsultationDate
-    }
-
-    fun getNextConsultationTime(): LiveData<String>{
-        return nextConsultationTime
     }
 }

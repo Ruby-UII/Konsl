@@ -15,8 +15,13 @@ import com.example.konsl.LoginActivity
 import com.example.konsl.R
 import com.example.konsl.adapter.ArticleAdapter
 import com.example.konsl.adapter.TutorialAdapter
+import com.github.marlonlom.utilities.timeago.TimeAgo
+import com.github.marlonlom.utilities.timeago.TimeAgoMessages
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
@@ -61,6 +66,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
         homeViewModel.loadTutorials()
         homeViewModel.loadNextConsultationInfo()
 
+        val localeByLanguageTag = Locale.forLanguageTag("id")
+        val timeMessages = TimeAgoMessages.Builder().withLocale(localeByLanguageTag).build()
+        val dateFormat = SimpleDateFormat("EEE, dd MMMM yyyy", Locale.getDefault())
+        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
         educationsSkeleton = Skeleton.bind(rvArticles)
                 .adapter(articleAdapter)
                 .load(R.layout.skeleton_item_article)
@@ -92,32 +102,31 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 .shimmer(true)
                 .duration(500)
                 .show()
-        homeViewModel.getNextConsultationTimeDiff().observe(viewLifecycleOwner, Observer { date ->
-            date?.let {
-                nextConsultationTimeDiffSkeleton.hide()
-                tvNextConsultationTimeDiff.text = if(it != "-") getString(R.string.time_remaining, it) else getString(R.string.nothing)
-            }
-        })
         nextConsultationDateSkeleton = Skeleton.bind(tvNextConsultationDate)
                 .load(R.layout.skeleton_next_consultation_date)
                 .shimmer(true)
                 .duration(500)
                 .show()
-        homeViewModel.getNextConsultationDate().observe(viewLifecycleOwner, Observer { counselor ->
-            counselor?.let {
-                nextConsultationDateSkeleton.hide()
-                tvNextConsultationDate.text = if(it != "-") it else getString(R.string.nothing)
-            }
-        })
         nextConsultationTimeSkeleton = Skeleton.bind(tvNextConsultationTime)
-                .load(R.layout.skeleton_next_consultation_time)
-                .shimmer(true)
-                .duration(500)
-                .show()
-        homeViewModel.getNextConsultationTime().observe(viewLifecycleOwner, Observer { time ->
-            time?.let {
-                nextConsultationTimeSkeleton.hide()
-                tvNextConsultationTime.text = if(it != "-") it else getString(R.string.nothing)
+            .load(R.layout.skeleton_next_consultation_time)
+            .shimmer(true)
+            .duration(500)
+            .show()
+        homeViewModel.getNextConsultationDate().observe(viewLifecycleOwner, Observer { date ->
+            nextConsultationTimeDiffSkeleton.hide()
+            nextConsultationDateSkeleton.hide()
+            nextConsultationTimeSkeleton.hide()
+            if(date != null){
+                tvNextConsultationTimeDiff.text = TimeAgo.using(date.time, timeMessages).capitalize(Locale.getDefault())
+                tvNextConsultationDate.text = dateFormat.format(date)
+                tvNextConsultationTime.text = timeFormat.format(date)
+                if(Timestamp.now().toDate().time < date.time){
+                    tvNextConsultationTimeDiff.text = getString(R.string.time_remaining, tvNextConsultationTimeDiff.text)
+                }
+            } else {
+                tvNextConsultationTimeDiff.text = getString(R.string.nothing)
+                tvNextConsultationDate.text = getString(R.string.nothing)
+                tvNextConsultationTime.text = getString(R.string.nothing)
             }
         })
 

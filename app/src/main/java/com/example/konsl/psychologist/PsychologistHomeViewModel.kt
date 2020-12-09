@@ -19,7 +19,6 @@ class PsychologistHomeViewModel: ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
     private val consultationRequestCount = MutableLiveData<Int>()
-    private val consultationConfirmedCount = MutableLiveData<Int>()
 
     fun loadBadgeNumbers(){
         db.collection("consultations")
@@ -36,7 +35,6 @@ class PsychologistHomeViewModel: ViewModel() {
                 val reqCount = listItems.filter{item -> item == STATUS_WAITING_FOR_CONFIRMATION}.size
                 val conCount = listItems.filter{item -> item == STATUS_CONFIRMED}.size
                 consultationRequestCount.postValue(reqCount)
-                consultationConfirmedCount.postValue(conCount)
             }
     }
 
@@ -44,7 +42,4 @@ class PsychologistHomeViewModel: ViewModel() {
         return consultationRequestCount
     }
 
-    fun getConsultationConfirmedCount(): LiveData<Int>{
-        return consultationConfirmedCount
-    }
 }

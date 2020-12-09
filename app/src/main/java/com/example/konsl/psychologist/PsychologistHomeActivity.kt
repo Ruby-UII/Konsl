@@ -35,11 +35,6 @@ class PsychologistHomeActivity : AppCompatActivity() {
                 tabsConsultation.getTabAt(1)?.orCreateBadge?.number = count
             }
         })
-        viewModel.getConsultationConfirmedCount().observe(this, Observer { count ->
-            if(count > 0){
-                tabsConsultation.getTabAt(0)?.orCreateBadge?.number = count
-            }
-        })
 
         supportActionBar?.elevation = 0f
     }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.konsl.R
 import com.example.konsl.model.Consultation
+import com.example.konsl.psychologist.ui.consultations.confirmed.chat.ConsultationCounselorChatActivity
 import com.example.konsl.psychologist.ui.consultations.request.detail.ConsultationRequestDetailActivity
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
@@ -74,7 +75,11 @@ class ConsultationCounselorAdapter: RecyclerView.Adapter<ConsultationCounselorAd
                     intent.putExtra(ConsultationRequestDetailActivity.EXTRA_USER_ID, consultation.userId)
                     holder.itemView.context.startActivity(intent)
                 }
-                //TODO
+                STATUS_CONFIRMED -> {
+                    val intent = Intent(holder.itemView.context, ConsultationCounselorChatActivity::class.java)
+                    intent.putExtra(ConsultationCounselorChatActivity.EXTRA_CONSULTATION, consultation)
+                    holder.itemView.context.startActivity(intent)
+                }
             }
         }
     }

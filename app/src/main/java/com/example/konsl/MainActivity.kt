@@ -41,10 +41,13 @@ class MainActivity : AppCompatActivity() {
 
             db.collection("users")
                 .whereEqualTo("auth_id", currentUser.uid)
-                .get()
-                .addOnSuccessListener { documents ->
+                .addSnapshotListener { value, e ->
+                    if (e != null || value == null) {
+                        Log.w(this::class.java.simpleName, "Listen failed.", e)
+                        return@addSnapshotListener
+                    }
                     var role = ""
-                    for (document in documents){
+                    for (document in value){
                         role = document.data["role"] as String
                     }
                     if (role == ROLE_USER){
@@ -55,9 +58,6 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this, PsychologistHomeActivity::class.java)
                         startActivity(intent)
                     }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(this::class.java.simpleName, "Error getting documents: ", exception)
                 }
         } else {
             // to login activity

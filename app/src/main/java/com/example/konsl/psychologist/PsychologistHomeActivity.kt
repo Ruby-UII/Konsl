@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.konsl.LoginActivity
 import com.example.konsl.R
 import com.example.konsl.adapter.ConsultationSectionsPagerAdapter
@@ -13,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_psychologist_home.*
 
 class PsychologistHomeActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var viewModel: PsychologistHomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,20 @@ class PsychologistHomeActivity : AppCompatActivity() {
         val consultationSectionsPagerAdapter = ConsultationSectionsPagerAdapter(this, supportFragmentManager)
         viewPagerConsultation.adapter = consultationSectionsPagerAdapter
         tabsConsultation.setupWithViewPager(viewPagerConsultation)
+
+        viewModel = ViewModelProvider(this).get(PsychologistHomeViewModel::class.java)
+        viewModel.loadBadgeNumbers()
+
+        viewModel.getConsultationRequestCount().observe(this, Observer { count ->
+            if(count > 0){
+                tabsConsultation.getTabAt(1)?.orCreateBadge?.number = count
+            }
+        })
+        viewModel.getConsultationConfirmedCount().observe(this, Observer { count ->
+            if(count > 0){
+                tabsConsultation.getTabAt(0)?.orCreateBadge?.number = count
+            }
+        })
 
         supportActionBar?.elevation = 0f
     }

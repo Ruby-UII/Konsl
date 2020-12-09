@@ -156,9 +156,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun updateBirthDateLabel(){
-        val myFormat = "dd/MM/yy" //In which you need put here
+        val myFormat = "dd/MM/yyyy" //In which you need put here
 
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
 
         etBirthDate.setText(sdf.format(myCalendar.time))
     }

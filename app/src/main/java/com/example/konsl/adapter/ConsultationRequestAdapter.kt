@@ -1,11 +1,13 @@
 package com.example.konsl.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.konsl.R
 import com.example.konsl.model.Consultation
+import com.example.konsl.psychologist.ui.consultations.request.detail.ConsultationRequestDetailActivity
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 import com.squareup.picasso.Picasso
@@ -65,7 +67,15 @@ class ConsultationRequestAdapter: RecyclerView.Adapter<ConsultationRequestAdapte
         holder.bind(consultation)
 
         holder.itemView.setOnClickListener{
-            //TODO
+            when(consultation.status){
+                STATUS_WAITING_FOR_CONFIRMATION -> {
+                    val intent = Intent(holder.itemView.context, ConsultationRequestDetailActivity::class.java)
+                    intent.putExtra(ConsultationRequestDetailActivity.EXTRA_REQUEST_ID, consultation.id)
+                    intent.putExtra(ConsultationRequestDetailActivity.EXTRA_USER_ID, consultation.userId)
+                    holder.itemView.context.startActivity(intent)
+                }
+                //TODO
+            }
         }
     }
 

@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.konsl.R
 import com.example.konsl.adapter.ConsultationRequestAdapter
-import kotlinx.android.synthetic.main.consultation_request_fragment.*
+import kotlinx.android.synthetic.main.fragment_consultation_request.*
 
 class ConsultationRequestFragment : Fragment() {
     private lateinit var viewModel: ConsultationRequestViewModel
@@ -20,7 +20,7 @@ class ConsultationRequestFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.consultation_request_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_consultation_request, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

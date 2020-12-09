@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isValid(): Boolean {
-        var isValid: Boolean = true
+        var isValid = true
         if(etEmail.text.toString().isEmpty()){
             etEmail.error = getString(R.string.error_required)
             isValid = false

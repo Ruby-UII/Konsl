@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konsl">
-        <activity android:name=".user.ui.consultations.chat.ConsultationUserChatActivity"></activity>
+        <activity android:name=".user.ui.profile.edit.EditProfileActivity"></activity>
+        <activity android:name=".user.ui.profile.ProfileActivity" />
+        <activity android:name=".user.ui.consultations.chat.ConsultationUserChatActivity" />
         <activity android:name=".psychologist.ui.consultations.confirmed.chat.ConsultationCounselorChatActivity" />
         <activity android:name=".psychologist.ui.consultations.request.detail.ConsultationRequestDetailActivity" />
         <activity android:name=".psychologist.PsychologistHomeActivity" />

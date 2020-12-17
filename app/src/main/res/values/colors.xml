@@ -13,4 +13,5 @@
     <color name="text_primary_color">#1a1a1a</color>
     <color name="text_secondary_color">#8a8a8a</color>
     <color name="color_skeleton">#dfdfdf</color>
+    <color name="green">#3ac74f</color>
 </resources>

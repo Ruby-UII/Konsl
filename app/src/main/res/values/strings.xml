@@ -73,4 +73,10 @@
     <string name="consultation_accepted">Konsultasi Diterima</string>
     <string name="accepting_consultation_failed">Mengonfirmasi konsultasi gagal</string>
     <string name="write_your_message">Tulis pesan...</string>
+    <string name="waiting">Menunggu</string>
+    <string name="profile">Profil</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="save_changes">Simpan Perubahan</string>
+    <string name="save_changes_failed">Menyimpan Perubahan Gagal</string>
+    <string name="save_changes_success">Berhasil Menyimpan Perubahan</string>
 </resources>

@@ -15,6 +15,7 @@ import com.example.konsl.LoginActivity
 import com.example.konsl.R
 import com.example.konsl.adapter.ArticleAdapter
 import com.example.konsl.adapter.TutorialAdapter
+import com.example.konsl.user.ui.profile.ProfileActivity
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 import com.google.firebase.Timestamp
@@ -142,6 +143,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
             activity?.finish()
+        } else if (item.itemId == R.id.menuProfile){
+            val intent = Intent(context, ProfileActivity::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }

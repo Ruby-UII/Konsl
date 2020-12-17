@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.konsl.admin.AdminHomeActivity
 import com.example.konsl.psychologist.PsychologistHomeActivity
 import com.example.konsl.user.UserHomeActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -67,19 +68,26 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 // to home activity
                 Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
-                var role : String = ""
+                var role = ""
                 for (document in documents){
                     role = document.data["role"] as String
                 }
-                if (role == ROLE_USER){
-                    val intent = Intent(this, UserHomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                else if (role == ROLE_PSYCHOLOGIST){
-                    val intent = Intent(this, PsychologistHomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                when (role) {
+                    ROLE_USER -> {
+                        val intent = Intent(this, UserHomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    ROLE_PSYCHOLOGIST -> {
+                        val intent = Intent(this, PsychologistHomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    ROLE_ADMIN -> {
+                        val intent = Intent(this, AdminHomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
             .addOnFailureListener { exception ->

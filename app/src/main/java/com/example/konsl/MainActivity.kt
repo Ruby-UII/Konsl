@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import com.example.konsl.admin.AdminHomeActivity
 import com.example.konsl.psychologist.PsychologistHomeActivity
 import com.example.konsl.user.UserHomeActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -50,13 +51,19 @@ class MainActivity : AppCompatActivity() {
                     for (document in value){
                         role = document.data["role"] as String
                     }
-                    if (role == ROLE_USER){
-                        val intent = Intent(this, UserHomeActivity::class.java)
-                        startActivity(intent)
-                    }
-                    else if(role == ROLE_PSYCHOLOGIST){
-                        val intent = Intent(this, PsychologistHomeActivity::class.java)
-                        startActivity(intent)
+                    when (role) {
+                        ROLE_USER -> {
+                            val intent = Intent(this, UserHomeActivity::class.java)
+                            startActivity(intent)
+                        }
+                        ROLE_PSYCHOLOGIST -> {
+                            val intent = Intent(this, PsychologistHomeActivity::class.java)
+                            startActivity(intent)
+                        }
+                        ROLE_ADMIN -> {
+                            val intent = Intent(this, AdminHomeActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
         } else {

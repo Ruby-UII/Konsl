@@ -239,7 +239,7 @@ class CreateArticleActivity : AppCompatActivity() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_loading, null)
         return AlertDialog.Builder(this)
                 .setView(mDialogView)
-                .setTitle(getString(R.string.creating_article))
+                .setTitle(getString(R.string.wait_a_moment))
                 .setCancelable(false)
                 .create()
     }

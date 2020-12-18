@@ -1,10 +1,13 @@
 package com.example.konsl.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.konsl.R
+import com.example.konsl.admin.ui.articles.edit.EditArticleActivity
+import com.example.konsl.admin.ui.articles.edit.EditArticleActivity.Companion.EXTRA_ARTICLE
 import com.example.konsl.model.Article
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_article.view.*
@@ -39,7 +42,9 @@ class ArticleAdminAdapter: RecyclerView.Adapter<ArticleAdminAdapter.ArticleViewH
         holder.bind(article)
 
         holder.itemView.setOnClickListener{
-            //TODO
+            val intent = Intent(holder.itemView.context, EditArticleActivity::class.java)
+            intent.putExtra(EXTRA_ARTICLE, article)
+            holder.itemView.context.startActivity(intent)
         }
     }
 

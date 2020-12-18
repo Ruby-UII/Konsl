@@ -93,4 +93,10 @@
     <string name="create_article_failed">Membuat Artikel Gagal</string>
     <string name="create_article_success">Membuat Artikel Berhasil</string>
     <string name="creating_article">Sedang Membuat Artikel</string>
+    <string name="edit_article">Edit Artikel</string>
+    <string name="delete">Hapus</string>
+    <string name="update_article_failed">Mengubah artikel gagal</string>
+    <string name="update_article_success">Mengubah artikel berhasil</string>
+    <string name="delete_article_success">Menghapus artikel berhasil</string>
+    <string name="delete_article_failed">Menghapus artikel gagal</string>
 </resources>

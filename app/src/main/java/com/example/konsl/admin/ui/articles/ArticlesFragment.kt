@@ -12,6 +12,7 @@ import com.ethanhua.skeleton.Skeleton
 import com.example.konsl.LoginActivity
 import com.example.konsl.R
 import com.example.konsl.adapter.ArticleAdminAdapter
+import com.example.konsl.admin.ui.articles.create.CreateArticleActivity
 import com.example.konsl.user.ui.profile.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_articles.*
@@ -63,6 +64,11 @@ class ArticlesFragment : Fragment() {
 
         (activity as AppCompatActivity?)?.supportActionBar?.title = getString(R.string.article)
         setHasOptionsMenu(true)
+
+        fabCreateArticle.setOnClickListener{
+            val intent = Intent(context, CreateArticleActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

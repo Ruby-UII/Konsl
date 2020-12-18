@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Konsl">
-        <activity android:name=".admin.AdminHomeActivity"></activity>
+        <activity android:name=".admin.ui.articles.create.CreateArticleActivity"></activity>
+        <activity android:name=".admin.AdminHomeActivity" />
         <activity android:name=".user.ui.profile.edit.EditProfileActivity" />
         <activity android:name=".user.ui.profile.ProfileActivity" />
         <activity android:name=".user.ui.consultations.chat.ConsultationUserChatActivity" />

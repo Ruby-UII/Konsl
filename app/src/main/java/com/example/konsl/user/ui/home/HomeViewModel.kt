@@ -31,6 +31,7 @@ class HomeViewModel : ViewModel() {
     fun loadArticles(){
         db.collection("articles")
             .whereEqualTo("tag", TYPE_EDUCATION)
+            .orderBy("created_at", Query.Direction.DESCENDING)
             .limit(2)
             .addSnapshotListener { value, e ->
                 if (e != null || value == null) {

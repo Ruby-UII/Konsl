@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.konsl.model.Article
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class EducationsViewModel : ViewModel() {
     companion object{
@@ -18,6 +19,7 @@ class EducationsViewModel : ViewModel() {
     fun setArticles(){
         db.collection("articles")
             .whereEqualTo("tag", TYPE_EDUCATION)
+            .orderBy("created_at", Query.Direction.DESCENDING)
             .addSnapshotListener { value, e ->
                 if (e != null || value == null) {
                     Log.w(this::class.java.simpleName, "Listen failed.", e)

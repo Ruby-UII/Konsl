@@ -79,4 +79,18 @@
     <string name="save_changes">Simpan Perubahan</string>
     <string name="save_changes_failed">Menyimpan Perubahan Gagal</string>
     <string name="save_changes_success">Berhasil Menyimpan Perubahan</string>
+    <string name="create_article">Buat Artikel</string>
+    <string name="write_here">Tulis di sini</string>
+    <string name="title">Judul</string>
+    <string name="write_title_here">Tulis judul di sini...</string>
+    <string name="content_article">Isi artikel</string>
+    <string name="upload_thumbnail">Upload Thumbnail</string>
+    <string name="change_thumbnail">Ganti Thumbnail</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="choose_tag_article">Pilih tag article</string>
+    <string name="publish">Publikasikan</string>
+    <string name="please_fill_all_fields">Harap mengisi semua inputan</string>
+    <string name="create_article_failed">Membuat Artikel Gagal</string>
+    <string name="create_article_success">Membuat Artikel Berhasil</string>
+    <string name="creating_article">Sedang Membuat Artikel</string>
 </resources>

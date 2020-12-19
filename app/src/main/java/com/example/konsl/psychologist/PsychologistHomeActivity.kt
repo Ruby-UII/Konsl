@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.konsl.LoginActivity
 import com.example.konsl.R
 import com.example.konsl.adapter.ConsultationSectionsPagerAdapter
+import com.example.konsl.user.ui.profile.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_psychologist_home.*
 
@@ -50,6 +51,9 @@ class PsychologistHomeActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
+        } else if (item.itemId == R.id.menuProfile){
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }
